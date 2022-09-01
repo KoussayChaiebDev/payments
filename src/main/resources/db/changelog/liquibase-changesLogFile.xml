@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-1">
+        <createTable tableName="customer">
+            <column name="account" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address1" type="VARCHAR(255)"/>
+            <column name="address2" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-2">
+        <createTable tableName="payment">
+            <column name="transaction_reference" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(19, 2)"/>
+            <column name="receiver_bic" type="VARCHAR(255)"/>
+            <column name="sender_bic" type="VARCHAR(255)"/>
+            <column name="value_date" type="date"/>
+            <column name="creditor_account" type="VARCHAR(255)"/>
+            <column name="debtor_account" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-3">
+        <addPrimaryKey columnNames="account" constraintName="PRIMARY" tableName="customer"/>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-4">
+        <addPrimaryKey columnNames="transaction_reference" constraintName="PRIMARY" tableName="payment"/>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-5">
+        <createIndex indexName="FKpbcpx0tqi26kao5x3diepbif2" tableName="payment">
+            <column name="creditor_account"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-6">
+        <createIndex indexName="FKr4x9i7ptnay6l6lc47993as9l" tableName="payment">
+            <column name="debtor_account"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-7">
+        <addForeignKeyConstraint baseColumnNames="creditor_account" baseTableName="payment" constraintName="FKpbcpx0tqi26kao5x3diepbif2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="account" referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="koussaychaieb (generated)" id="1661409097643-8">
+        <addForeignKeyConstraint baseColumnNames="debtor_account" baseTableName="payment" constraintName="FKr4x9i7ptnay6l6lc47993as9l" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="account" referencedTableName="customer"/>
+    </changeSet>
+</databaseChangeLog>
